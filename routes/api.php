@@ -21,7 +21,7 @@ Route::post("login", [ApiController::class, "login"]);
 Route::group([
     "middleware" => ["auth:api"]
 ], function(){
-
+    Route::put("modifierCompte/{id}", [ApiController::class, "modifierCompte"]);
     Route::get("profile", [ApiController::class, "profile"]);
     Route::get("refresh", [ApiController::class, "refreshToken"]);
     Route::get("logout", [ApiController::class, "logout"]);
