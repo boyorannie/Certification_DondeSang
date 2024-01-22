@@ -14,11 +14,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('prenom');
+            $table->string('prenom')->nullable();
             $table->string('adresse')->nullable();
-            $table->string('telephone')->nullable();
-            $table->bigInteger('cni')->nullable();
-            $table->enum('groupe_sanguin',['O+','O-','B-','B+','A-','A+','AB-','AB+'])->nullable();
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('email')->unique();
@@ -27,7 +25,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-    }
+    }           
 
     /**
      * Reverse the migrations.

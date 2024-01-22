@@ -14,14 +14,7 @@ class adminSeeding extends Seeder
      */
     public function run(): void
     {
-        User::create([ 'prenom' =>'Khady',
-        'name' =>'MBENGUE',
-        'role_id' =>1,
-        'email' =>'khadijambengue96@gmail.com',
-        'email_verified_at' => now(),
-        'password' => Hash::make('123456789')
-    ]);
-           
+       
            
     }
 }

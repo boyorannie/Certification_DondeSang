@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\ApiController;
 Route::post("InscriptionDonneur", [ApiController::class, "InscriptionDonneur"]);
 Route::post("login", [ApiController::class, "login"]);
 
+// routes destinées à l'authentification
 Route::group([
     "middleware" => ["auth:api"]
 ], function(){
@@ -26,7 +27,10 @@ Route::group([
     Route::get("refresh", [ApiController::class, "refreshToken"]);
     Route::get("logout", [ApiController::class, "logout"]);
 });
-
+   // Votre route pour ajouter une structure de santé
+Route::middleware(['checkadmin', "auth:api"])->group(function () {
+  Route::post("ajoutStructure", [ApiController::class, "ajouterStructureSante"]);
+});
 
 
 

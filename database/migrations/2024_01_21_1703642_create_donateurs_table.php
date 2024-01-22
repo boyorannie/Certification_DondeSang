@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('structure_santes', function (Blueprint $table) {
+        Schema::create('donateurs', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->string('telephone')->nullable();
+            $table->bigInteger('cni')->nullable();
+            $table->enum('groupe_sanguin',['O+','O-','B-','B+','A-','A+','AB-','AB+'])->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');     
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->timestamps();
         });
     }
 
@@ -24,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('structure_santes');
+        Schema::dropIfExists('donateurs');
     }
 };

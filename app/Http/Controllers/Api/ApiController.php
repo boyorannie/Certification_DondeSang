@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
  
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use App\Models\StructureSante;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
 {
@@ -24,7 +26,7 @@ class ApiController extends Controller
             
         ]);
 
-        // User Model
+        // Model utilisateur
         User::create([      
             "name" => $request->name,
             "email" => $request->email,
@@ -35,17 +37,52 @@ class ApiController extends Controller
             "role_id" =>2,
         ]);
 
-        // Response
+        // Reponse
         return response()->json([
             "status" => true,
             "message" => "Inscription Donneur réussi"
         ]);
     }
+    //  Ajout Structure de Santés
+   
+    public function ajouterStructureSante(Request $request)
+    {
+         // data validation
+       
+         $request->validate([
+            "name" => "required",
+            "email" => "required|email|unique:users",
+            "telephone" => "required",
+            "adresse" => "required",
+            "image" => "required",
+            "password" => "required",
+            
+        ]);
+        $imagePath = $request->file('image')->store('images/structure', 'public'); 
+        $Structure=StructureSante::create([      
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => Hash::make($request->password),
+            "adresse" => $request->adresse,
+            "image" => $imagePath,
+            "telephone" => $request->telephone,
+            "role_id" =>3
+        ]);
+      
+        // Reponse
+        return response()->json([
+            "status" => true,
+            "message" => "Ajout Structure de Santé  réussi",
+            "Détails Structure " =>$Structure,
 
-    // User Login (POST, formdata)
+        ]);
+    }
+    
+    
+    // Connexion utilisateur (POST)
     public function login(Request $request){
         
-        // data validation
+        // validation données
         $request->validate([
             "email" => "required|email",
             "password" => "required"
@@ -72,7 +109,7 @@ class ApiController extends Controller
         ]);
     }
 
-    // User Profile (GET)
+    // Utilisateur Profile (GET)
     public function profile(){
 
         $userdata = auth()->user();
@@ -84,7 +121,7 @@ class ApiController extends Controller
         ]);
     } 
 
-    // To generate refresh token value
+    // rafraichir token
     public function refreshToken(){
         
         $newToken = auth()->refresh();
@@ -96,7 +133,7 @@ class ApiController extends Controller
         ]);
     }
 
-    // User Logout (GET)
+    // Déconnexion utilisateur
     public function logout(){
         
         auth()->logout();
@@ -109,7 +146,7 @@ class ApiController extends Controller
 
     public function modifierCompte(Request $request, $id)
 {
-    // Data validation
+    // validation Données
     $request->validate([
         "name" => "required",
         "email" => "required|email|unique:users,email," . $id,

@@ -3,11 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Models\Role;
+use App\Models\Admin;
+use App\Models\Donateur;
+use App\Models\StructureSante;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -19,11 +24,26 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $guarded = [];
-    public function role(): BelongsTo
+
+    public function role()
      {
          return $this->belongsTo(Role::class);
      }
 
+     public function structuresante(): HasOne
+     {
+         return $this->hasOne(StructureSante::class);
+     }
+
+     public function donateur(): HasOne
+     {
+         return $this->hasOne(Donateur::class);
+     }
+
+     public function admin(): HasOne
+     {
+         return $this->hasOne(Admin::class);
+     }
     /**
      * The attributes that should be hidden for serialization.
      *
