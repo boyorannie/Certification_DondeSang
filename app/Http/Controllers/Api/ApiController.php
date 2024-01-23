@@ -9,76 +9,27 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\StoreRegisterRequestApiController;
 
 class ApiController extends Controller
 {
     // Inscription donneur
-    public function InscriptionDonneur(Request $request){
+    public function InscriptionDonneur(StoreRegisterRequestApiController $request){
         
-        // data validation
-        $request->validate([
-            "name" => "required",
-            "email" => "required|email|unique:users",
-            "prenom" => "required",
-            "cni" => "required",
-            "groupe_sanguin" => "required",
-            "password" => "required",
-            
-        ]);
+        $infoUtilisateurValide = $request->validated();
 
-        // Model utilisateur
-        User::create([      
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => Hash::make($request->password),
-            "prenom" => $request->prenom,
-            "cni" => $request->cni,
-            "groupe_sanguin" => $request->groupe_sanguin,
-            "role_id" =>2,
-        ]);
+        $infoUtilisateurValide['password'] = Hash::make($request->password);
+
+        $user = User::create($infoUtilisateurValide);
 
         // Reponse
         return response()->json([
             "status" => true,
-            "message" => "Inscription Donneur réussi"
+            "message" => "Inscription Donneur réussi",
+            "Détails"  =>$user
         ]);
     }
-    //  Ajout Structure de Santés
-   
-    public function ajouterStructureSante(Request $request)
-    {
-         // data validation
-       
-         $request->validate([
-            "name" => "required",
-            "email" => "required|email|unique:users",
-            "telephone" => "required",
-            "adresse" => "required",
-            "image" => "required",
-            "password" => "required",
-            
-        ]);
-        $imagePath = $request->file('image')->store('images/structure', 'public'); 
-        $Structure=StructureSante::create([      
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => Hash::make($request->password),
-            "adresse" => $request->adresse,
-            "image" => $imagePath,
-            "telephone" => $request->telephone,
-            "role_id" =>3
-        ]);
-      
-        // Reponse
-        return response()->json([
-            "status" => true,
-            "message" => "Ajout Structure de Santé  réussi",
-            "Détails Structure " =>$Structure,
 
-        ]);
-    }
-    
-    
     // Connexion utilisateur (POST)
     public function login(Request $request){
         
@@ -87,7 +38,7 @@ class ApiController extends Controller
             "email" => "required|email",
             "password" => "required"
         ]);
-
+ 
         // JWTAuth
         $token = JWTAuth::attempt([
             "email" => $request->email,

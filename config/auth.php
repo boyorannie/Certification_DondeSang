@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'api',
         'passwords' => 'users',
     ],
 
@@ -44,7 +44,12 @@ return [
             'driver' => 'jwt',
             'provider' => 'users',
         ],
+        'structure' => [
+            'driver' => 'jwt',
+            'provider' => 'structures',
+        ],
     ],
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -67,6 +72,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'structures' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\StructureSante::class,
         ],
 
         // 'users' => [
@@ -98,6 +107,12 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'structures' => [
+            'provider' => 'structures',
+            'table' => 'structure_password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],

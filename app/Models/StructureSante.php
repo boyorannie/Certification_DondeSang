@@ -2,19 +2,24 @@
 
 namespace App\Models;
 
-use App\Models\Role;
-use App\Models\User;
-use App\Models\CampagneCollecteDon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class StructureSante extends Model
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+
+
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class StructureSante extends Authenticatable implements JWTSubject
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
+
     protected $guarded = [];
-   
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
@@ -22,11 +27,43 @@ class StructureSante extends Model
 
     public function campagnecollecte(): HasMany
     {
-        return $this->HasMany(CampagneCollecteDon::class);
+        return $this->hasMany(CampagneCollecteDon::class);
     }
-    
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+
+ /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ]; 
+
+    public function getJWTIdentifier()
+    {
+      return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+      return [];
+    }
+
+    
 }

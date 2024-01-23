@@ -13,9 +13,17 @@ return new class extends Migration
     {
         Schema::create('structure_santes', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('image');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');     
+            $table->string('adresse');
+            $table->string('telephone');
+            $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();    
         });
     }
 
