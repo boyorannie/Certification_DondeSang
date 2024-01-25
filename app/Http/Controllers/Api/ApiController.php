@@ -13,6 +13,7 @@ use App\Http\Requests\StoreRegisterRequestApiController;
 
 class ApiController extends Controller
 {
+
     // Inscription donneur
     public function InscriptionDonneur(StoreRegisterRequestApiController $request){
         
@@ -26,7 +27,7 @@ class ApiController extends Controller
         return response()->json([
             "status" => true,
             "message" => "Inscription Donneur réussi",
-            "Détails"  =>$user
+            "Donneur inscrit"  =>$user
         ]);
     }
 
@@ -40,7 +41,7 @@ class ApiController extends Controller
         ]);
  
         // JWTAuth
-        $token = JWTAuth::attempt([
+        $token = auth()->attempt([
             "email" => $request->email,
             "password" => $request->password
         ]);
@@ -138,4 +139,8 @@ class ApiController extends Controller
         ]);
     }
 }
+
+
+
+
 }

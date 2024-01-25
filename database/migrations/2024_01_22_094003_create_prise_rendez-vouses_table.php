@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('prise_rendez-vouses', function (Blueprint $table) {
             $table->id();
+            $table->enum('statut',['confirmé','annulé']);
+            $table->unsignedBigInteger('campagne_id');
+            $table->unsignedBigInteger('donateur_id');
+            $table->foreign('campagne_id')->references('id')->on('campagne_collecte_dons')->onDelete('cascade');
+            $table->foreign('donateur_id')->references('id')->on('donateurs')->onDelete('cascade');
             $table->timestamps();
         });
     }

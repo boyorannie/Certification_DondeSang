@@ -3,16 +3,14 @@
 namespace App\Models;
 
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
-
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\CampagneCollecteDon;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class StructureSante extends Authenticatable implements JWTSubject
 {
@@ -25,7 +23,7 @@ class StructureSante extends Authenticatable implements JWTSubject
         return $this->belongsTo(Role::class);
     }
 
-    public function campagnecollecte(): HasMany
+    public function CampagneCollecteDon(): HasMany
     {
         return $this->hasMany(CampagneCollecteDon::class);
     }

@@ -16,7 +16,7 @@ class CheckAdmin
     public function handle(Request $request, Closure $next): Response
     {
         // Vérifier si l'utilisateur est un admin
-        if (auth()->check() && auth()->user()->role->libelle === 'admin') {
+        if (auth()->check() && auth()->user()->role->id === 1) {
             return $next($request);
         }
 

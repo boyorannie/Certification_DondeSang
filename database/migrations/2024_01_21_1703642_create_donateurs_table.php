@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('donateurs', function (Blueprint $table) {
             $table->id();
-            $table->string('telephone')->nullable();
-            $table->bigInteger('cni')->nullable();
-            $table->enum('groupe_sanguin',['O+','O-','B-','B+','A-','A+','AB-','AB+'])->nullable();
+            $table->string('telephone')->unique();
+            $table->bigInteger('cni')->unique();
+            $table->enum('groupe_sanguin',['O+','O-','B-','B+','A-','A+','AB-','AB+']);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 

@@ -11,46 +11,27 @@ class StructureController extends Controller
 {
   
     public function ajouterStructureSante(StoreRegisterRequestStructure $request)
-    {
-        // validation données
-        $request->validate([
-            "name" => "required",
-            "email" => "required|email|unique:structure_santes", // Utilisez la table structure_santes
-            "telephone" => "required",
-            "adresse" => "required",
-            "image" => "required",
-            "password" => "required",
-            "role_id" => "required",
+    { $infoUtilisateurValide = $request->validated();
+        $infoUtilisateurValide['password'] = Hash::make($request->password);
+        $imagePath = $request->file('image')->store('images/structure', 'public');
 
-        ]);
-    
-        $imagePath = $request->file('image')->store('images/structure', 'public'); 
-    
         // Utilisation du guard 'structures' pour l'authentification
-    
-        $structure=StructureSante::create([      
-                "name" => $request->name,
-                "email" => $request->email,
-                "password" => Hash::make($request->password),
-                "adresse" => $request->adresse,
-                "image" => $imagePath,
-                "telephone" => $request->telephone,
-                "role_id" => 3
-            ]);
-    
-            return response()->json([
-                "status" => true,
-                "message" => "Ajout Structure de Santé réussi",
-                "Détails Structure" => $structure,
-            ]);
-        
-    
+        $structure = StructureSante::create([
+            "name" => $infoUtilisateurValide['name'],
+            "email" => $infoUtilisateurValide['email'],
+            "password" => $infoUtilisateurValide['password'],
+            "adresse" => $infoUtilisateurValide['adresse'],
+            "image" => $imagePath,
+            "telephone" => $infoUtilisateurValide['telephone'],
+            "role_id" => 3,
+        ]);
+
         return response()->json([
-            "status" => false,
-            "message" => "Invalid details"
-    
-            ]);
-        }
+            "status" => true,
+            "message" => "Ajout Structure de Santé réussi",
+            "Détails Structure" => $structure,
+        ]);
+    }
         
     public function loginStructure(Request $request){
         

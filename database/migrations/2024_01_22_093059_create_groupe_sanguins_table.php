@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('groupe_sanguins', function (Blueprint $table) {
             $table->id();
+            $table->enum('groupe_sanguin',['O+','O-','B-','B+','A-','A+','AB-','AB+']);
             $table->timestamps();
         });
     }

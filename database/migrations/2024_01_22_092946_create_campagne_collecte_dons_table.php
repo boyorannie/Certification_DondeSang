@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('campagne_collecte_dons', function (Blueprint $table) {
             $table->id();
+            $table->enum('jour',['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']);
+            $table->time('heure');
+            $table->string('lieu');
+            $table->enum('statut',['ouverte','complete'])->default('ouverte');
+            $table->boolean('is_deleted')->default(false); //prend la valeur 0 par defaut
+            $table->unsignedBigInteger('structure_id');
+            $table->foreign('structure_id')->references('id')->on('structure_santes')->onDelete('cascade');
             $table->timestamps();
         });
     }

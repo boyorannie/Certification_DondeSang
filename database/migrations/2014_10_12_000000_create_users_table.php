@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('prenom');
+            $table->string('name')->unique();
+            $table->string('prenom')->unique();
             $table->string('adresse')->nullable();
-            $table->string('telephone')->nullable();
+            $table->string('telephone')->nullable()->unique();
             $table->bigInteger('cni')->nullable();
             $table->enum('groupe_sanguin',['O+','O-','B-','B+','A-','A+','AB-','AB+'])->nullable();
             $table->unsignedBigInteger('role_id');
