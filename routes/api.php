@@ -16,7 +16,7 @@ use App\Http\Controllers\CampagneCollecteDonController;
 |
 */
 
-// routes inscription, connexion pour tous les utilisateurs
+// routes auxquelles tous les utilisateurs ont accès
 Route::post("InscriptionDonneur", [ApiController::class, "InscriptionDonneur"]);
 Route::post("login", [ApiController::class, "login"]);
 Route::post("loginStructure", [StructureController::class, "loginStructure"]);
@@ -41,7 +41,11 @@ Route::group([
     Route::get("refresh", [StructureController::class, "refreshToken"]);
     Route::get("logoutStructure", [StructureController::class, "logout"]);
     Route::post("publier", [CampagneCollecteDonController::class, "PublierAnnonce"]);
+    Route::post("modifierAnnonce/{id}", [CampagneCollecteDonController::class, "modifierAnnonce"]);
+    Route::delete("supprimerAnnonce/{annonce}", [CampagneCollecteDonController::class, "SupprimerAnnonce"]);
     Route::get("listerAnnonceStructure", [CampagneCollecteDonController::class, "listerAnnonceStructure"]);
+    Route::get("CloturerAnnonce/{id}", [CampagneCollecteDonController::class, "CloturerAnnonce"]);
+
 });
 
    // routes destinées à l'admin pour ajouter une structure de santé
