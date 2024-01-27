@@ -12,26 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreRegisterRequestApiController;
 
 class ApiController extends Controller
-{
-
-    // Inscription donneur
-    public function InscriptionDonneur(StoreRegisterRequestApiController $request){
-        
-        $infoUtilisateurValide = $request->validated();
-
-        $infoUtilisateurValide['password'] = Hash::make($request->password);
-
-        $user = User::create($infoUtilisateurValide);
-
-        // Reponse
-        return response()->json([
-            "status" => true,
-            "message" => "Inscription Donneur réussi",
-            "Donneur inscrit"  =>$user
-        ]);
-    }
-
-    // Connexion utilisateur (POST)
+{       
+    // Connexion utilisateur 
     public function login(Request $request){
         
         // validation données
@@ -64,7 +46,7 @@ class ApiController extends Controller
     // Utilisateur Profile (GET)
     public function profile(){
 
-        $userdata = auth()->user();
+        $userdata = auth('api')->user();
 
         return response()->json([
             "status" => true,

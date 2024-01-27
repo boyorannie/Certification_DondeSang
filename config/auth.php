@@ -48,6 +48,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'structures',
         ],
+        'donateur' => [
+            'driver' => 'jwt',
+            'provider' => 'donateurs',
+        ],
     ],
     
 
@@ -76,6 +80,10 @@ return [
         'structures' => [
             'driver' => 'eloquent',
             'model' => App\Models\StructureSante::class,
+        ],
+        'donateurs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Donateur::class,
         ],
 
         // 'users' => [
@@ -112,6 +120,12 @@ return [
         ],
         'structures' => [
             'provider' => 'structures',
+            'table' => 'structure_password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'donateurs' => [
+            'provider' => 'donateurs',
             'table' => 'structure_password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

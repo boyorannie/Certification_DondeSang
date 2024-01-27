@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Database\Seeders\GroupeSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,10 +21,12 @@ class DatabaseSeeder extends Seeder
           \App\Models\Role::factory(1)->create(['libelle' => 'donneur']);
           \App\Models\Role::factory(1)->create(['libelle' => 'StructureSante']);
            User::factory(1)->create();
-
+           
+           
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
     }
+    
 }

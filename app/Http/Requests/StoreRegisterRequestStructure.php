@@ -29,7 +29,6 @@ class StoreRegisterRequestStructure extends FormRequest
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required','min:8'],
             'adresse' => ['required'],  
-            'role_id' =>['required'],
             'image' => ['required','image','mimes:jpeg,png,jpg'],
             'telephone' => ['required', 'regex:/^(33|77|78|79|75)[0-9]{7}$/'],
 
@@ -49,7 +48,6 @@ class StoreRegisterRequestStructure extends FormRequest
     {
         return [
             'name.required'=> 'Le champs nom est obligatoire',
-            'role_id.required'=> 'Le champs role est obligatoire',
             'email.required'=> 'Le champs email est obligatoire',
             'image.required'=> 'L\'image est obligatoire',
             'adresse.required'=> 'Le champs adresse est obligatoire',

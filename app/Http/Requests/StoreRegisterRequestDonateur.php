@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Http\Requests\StoreRegisterRequestApiController;
 
-class StoreRegisterRequestApiController extends FormRequest
+class StoreRegisterRequestDonateur extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,9 +30,11 @@ class StoreRegisterRequestApiController extends FormRequest
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required','min:8'],
             'adresse' => ['required'],
+            'sexe' => ['required'],
+
+            'image' => ['required','image','mimes:jpeg,png,jpg'],
             'cni' => ['required','min:13'],
             'groupe_sanguin' => ['required'],
-            'role_id' =>['required'],
             'telephone' => ['required','regex:/^(70|75|76|77|78)[0-9]{7}$/'],
            
         ];
@@ -50,9 +52,11 @@ class StoreRegisterRequestApiController extends FormRequest
     {
         return [
             'name.required'=> 'Le champs nom est obligatoire',
-            'role_id.required'=> 'Le champs role est obligatoire',
             'prenom.required'=> 'Le champs prenom est obligatoire',
             'email.required'=> 'Le champs email est obligatoire',
+            'sexe.required'=> 'Le champs sexe est obligatoire',
+
+            'image.required'=> 'Le champs image est obligatoire',
             'groupe_sanguin.required'=> 'Le champs email est obligatoire',
             'cni.required'=> 'Le champs email est obligatoire',
             'adresse.required'=> 'Le champs adresse est obligatoire',

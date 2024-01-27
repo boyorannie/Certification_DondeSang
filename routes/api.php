@@ -3,7 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ApiController;
+use App\Http\Controllers\DonateurController;
 use App\Http\Controllers\StructureController;
+use App\Http\Controllers\PromesseDonController;
+use App\Http\Controllers\DetailsCollecteController;
 use App\Http\Controllers\CampagneCollecteDonController;
 /*
 |--------------------------------------------------------------------------
@@ -17,26 +20,31 @@ use App\Http\Controllers\CampagneCollecteDonController;
 */
 
 // routes auxquelles tous les utilisateurs ont accès
-Route::post("InscriptionDonneur", [ApiController::class, "InscriptionDonneur"]);
-Route::post("login", [ApiController::class, "login"]);
+Route::post("InscriptionDonneur", [DonateurController::class, "InscriptionDonneur"]);
+Route::post("loginDonateur", [DonateurController::class, "loginDonateur"]);
+Route::post("loginAdmin", [ApiController::class, "login"]);
 Route::post("loginStructure", [StructureController::class, "loginStructure"]);
 Route::get("listeAnnonces", [CampagneCollecteDonController::class, "listerAnnonces"]);
+Route::get("detailsAnnonces/{id}", [DetailsCollecteController::class, "voirDetailAnnonce"]);
 
-//routes destinées à l'authentification des donneurs et admin
+//------------------------------------------------------------------------------------------
+
+//routes destinées à l'authentification de l'admin
 Route::group([
     "middleware" => ["auth:api"]
 ], function(){
-    Route::put("modifierCompte/{id}", [ApiController::class, "modifierCompte"]);
-    Route::get("profile", [ApiController::class, "profile"]);
+    Route::get("profileAdmin", [ApiController::class, "profile"]);
     Route::get("refresh", [ApiController::class, "refreshToken"]);
-    Route::get("logout", [ApiController::class, "logout"]);
+    Route::get("logoutAdmin", [ApiController::class, "logout"]);
 });
+
+//---------------------------------------------------------------------------------------------
 
 // routes destinées aux structures de santé
 Route::group([
     "middleware" => ["auth:structure"]
 ], function(){
-    Route::put("modifierCompte/{id}", [StructureController::class, "modifier"]);
+    Route::post("modifierComptestructure/{id}", [StructureController::class, "modifier"]);
     Route::get("profileStructure", [StructureController::class, "profileStructure"]);
     Route::get("refresh", [StructureController::class, "refreshToken"]);
     Route::get("logoutStructure", [StructureController::class, "logout"]);
@@ -47,6 +55,25 @@ Route::group([
     Route::get("CloturerAnnonce/{id}", [CampagneCollecteDonController::class, "CloturerAnnonce"]);
 
 });
+//---------------------------------------------------------------------------------------
+
+// routes destinées aux donateurs
+Route::group([
+    "middleware" => ["auth:donateur"]
+], function(){
+    Route::post("modifierCompte/{id}", [DonateurController::class, "modifierCompte"]);
+    Route::get("profileDonateur", [DonateurController::class, "profile"]);
+    Route::get("refresh", [StructureController::class, "refreshToken"]);
+    Route::get("logoutDonateur", [DonateurController::class, "logout"]);
+    Route::get("FaireDon/{campagneId}", [PromesseDonController::class, "promesseDon"]);
+    Route::put('confirmerpromesse/{promesseDon}', [PromesseDonController::class, 'confirmerPromesseDon']);
+    Route::put('annulerpromesse/{promesseDon}', [PromesseDonController::class, 'annulerPromesseDon']);
+
+
+});
+
+
+
 
    // routes destinées à l'admin pour ajouter une structure de santé
    Route::group([

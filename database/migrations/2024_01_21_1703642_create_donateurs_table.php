@@ -13,13 +13,22 @@ return new class extends Migration
     {
         Schema::create('donateurs', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('prenom');
+            $table->string('adresse');
+            $table->string('image');
+            $table->enum('sexe',['Femme','Homme']);
             $table->string('telephone')->unique();
             $table->bigInteger('cni')->unique();
             $table->enum('groupe_sanguin',['O+','O-','B-','B+','A-','A+','AB-','AB+']);
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-
+            $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
+            
         });
     }
 

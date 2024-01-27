@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\StructureSante;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Requests\StoreRegisterRequestStructure;
 
 class StructureController extends Controller
 {
   
     public function ajouterStructureSante(StoreRegisterRequestStructure $request)
-    { $infoUtilisateurValide = $request->validated();
+    { 
+        $infoUtilisateurValide = $request->validated();
         $infoUtilisateurValide['password'] = Hash::make($request->password);
         $imagePath = $request->file('image')->store('images/structure', 'public');
 
@@ -103,11 +106,9 @@ class StructureController extends Controller
     $request->validate([
         "name" => "required",
         "email" => "required|email|unique:users,email," . $id,
-        "prenom" => "required",
         "adresse" => "required",
         "telephone" => "required",
-        "cni" => "required",
-        "groupe_sanguin" => "required",
+        "image" => "required",
         "password" => "required",
     ]);
 
@@ -118,11 +119,9 @@ class StructureController extends Controller
         $user->update([
             "name" => $request->name,
             "email" => $request->email,
-            "prenom" => $request->prenom,
             "adresse" => $request->adresse,
             "telephone" => $request->telephone,
-            "cni" => $request->cni,
-            "groupe_sanguin" => $request->groupe_sanguin,
+            "image" => $request->image,
             "password" => $request->password ? Hash::make($request->password) : $user->password,
         ]);
 

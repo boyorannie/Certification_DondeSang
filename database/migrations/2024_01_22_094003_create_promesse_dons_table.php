@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('details_collectes', function (Blueprint $table) {
+        Schema::create('promesse_dons', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('groupe_id');
+            $table->enum('statut',['confirmé','annulé','en attente'])->default('en attente');
             $table->unsignedBigInteger('campagne_id');
-            $table->foreign('groupe_id')->references('id')->on('groupe_sanguins')->onDelete('cascade');
+            $table->unsignedBigInteger('donateur_id');
             $table->foreign('campagne_id')->references('id')->on('campagne_collecte_dons')->onDelete('cascade');
+            $table->foreign('donateur_id')->references('id')->on('donateurs')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('details_collectes');
+        Schema::dropIfExists('promesse_dons');
     }
 };

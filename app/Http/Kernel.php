@@ -51,6 +51,12 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             
         ],
+        'donateur' => [
+            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \Illuminate\Routing\Middleware\ThrottleRequests::class.':donateur',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            
+        ],
     ];
 
     /**
@@ -74,6 +80,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkadmin' => \App\Http\Middleware\CheckAdmin::class,
         'structure' => \App\Http\Middleware\Structure::class,
+        'donateur' => \App\Http\Middleware\Donateur::class,
     ];
     
 }

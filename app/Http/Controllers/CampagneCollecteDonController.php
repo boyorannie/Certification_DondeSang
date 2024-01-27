@@ -113,6 +113,7 @@ class CampagneCollecteDonController extends Controller
         public function listerAnnonces()
     {
          $annonces = CampagneCollecteDon::where('is_deleted', 0)->paginate(5);
+        // dd($annonces);
         if($annonces){
             return response()->json([
                 'statut'=>1,

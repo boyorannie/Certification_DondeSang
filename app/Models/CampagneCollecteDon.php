@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\PromesseDon;
 use App\Models\GroupeSanguin;
 use App\Models\StructureSante;
 use Illuminate\Database\Eloquent\Model;
@@ -19,8 +20,8 @@ class CampagneCollecteDon extends Model
          return $this->belongsTo(StructureSante::class,'structure_id');
      }
 
-     public function groupeSanguin(): HasMany
-     {
-         return $this->hasMany(GroupeSanguin::class);
-     }
+     public function PromesseDon(): HasMany
+    {
+        return $this->hasMany(PromesseDon::class);
+    }
 }
