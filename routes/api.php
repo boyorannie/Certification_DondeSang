@@ -25,7 +25,6 @@ Route::post("loginDonateur", [DonateurController::class, "loginDonateur"]);
 Route::post("loginAdmin", [ApiController::class, "login"]);
 Route::post("loginStructure", [StructureController::class, "loginStructure"]);
 Route::get("listeAnnonces", [CampagneCollecteDonController::class, "listerAnnonces"]);
-Route::get("detailsAnnonces/{id}", [DetailsCollecteController::class, "voirDetailAnnonce"]);
 
 //------------------------------------------------------------------------------------------
 
