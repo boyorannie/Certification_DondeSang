@@ -91,7 +91,7 @@ Route::group([
 ], function(){
 Route::post("ajouterStructureSante", [StructureController::class, "ajouterStructureSante"]);
 Route::get("listeAnnoncesAdmin", [CampagneCollecteDonController::class, "listerAnnonces"]);
-Route::post("PublierAnnoncePartenaire", [CampagneCollecteDonController::class, "PublierAnnoncePartenaire"]);
+//Route::post("PublierAnnoncePartenaire", [CampagneCollecteDonController::class, "PublierAnnoncePartenaire"]);
 Route::get("listeStructure", [StructureController::class, "ListeStructures"]);
 Route::get("listeDonateur", [DonateurController::class, "ListeDonateur"]);
 Route::put("bloquerDonateur/{id}", [DonateurController::class, "bloquerDonateur"]);

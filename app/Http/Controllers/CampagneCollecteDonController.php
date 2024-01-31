@@ -45,12 +45,12 @@ class CampagneCollecteDonController extends Controller
         $campagne->load('StructureSante');
     
         if ($campagne->StructureSante) {
-            // $donateurs = Donateur::all();
+            $donateurs = Donateur::all();
 
-            // // Envoyer l'e-mail à chaque donateur
-            // foreach ($donateurs as $donateur) {
-            //     Mail::to($donateur->email)->send(new mail($campagne));
-            // }
+            // Envoyer l'e-mail à chaque donateur
+            foreach ($donateurs as $donateur) {
+                Mail::to($donateur->email)->send(new mail($campagne));
+            }
             return response()->json([
                 "status" => true,
                 "message" => "Annonce publiée avec succès",
@@ -176,40 +176,40 @@ class CampagneCollecteDonController extends Controller
         }
 
         
-    public function PublierAnnoncePartenaire(CampagneCollecteRequest $request){
+    // public function PublierAnnoncePartenaire(CampagneCollecteRequest $request){
 
-        $admin = auth('api')->user();
-        if (!$admin) {
-            return response()->json([
-                "status" => false,
-                "message" => "Accès non autorisé. Veuillez vous connectez en tant que Admin."
-            ], 403);
-        }
-        $infoCampagne = $request->validated();
+    //     $admin = auth('api')->user();
+    //     if (!$admin) {
+    //         return response()->json([
+    //             "status" => false,
+    //             "message" => "Accès non autorisé. Veuillez vous connectez en tant que Admin."
+    //         ], 403);
+    //     }
+    //     $infoCampagne = $request->validated();
 
-        // Vérifier si une annonce similaire existe déjà
-        $annonceExistante = CampagneCollecteDon::where('jour', $request->jour)
-            ->where('heure', $request->heure)
-            ->where('lieu', $request->lieu)
-            ->where('statut', 'ouverte')
-            ->exists();
+    //     // Vérifier si une annonce similaire existe déjà
+    //     $annonceExistante = CampagneCollecteDon::where('jour', $request->jour)
+    //         ->where('heure', $request->heure)
+    //         ->where('lieu', $request->lieu)
+    //         ->where('statut', 'ouverte')
+    //         ->exists();
 
-        if ($annonceExistante) {
-            return response()->json([
-                "status" => false,
-                "message" => "Une annonce similaire existe déjà."
-            ], 422);
-        }
+    //     if ($annonceExistante) {
+    //         return response()->json([
+    //             "status" => false,
+    //             "message" => "Une annonce similaire existe déjà."
+    //         ], 422);
+    //     }
 
-        // Créer la campagne
-        $campagne = CampagneCollecteDon::create($infoCampagne);
+    //     // Créer la campagne
+    //     $campagne = CampagneCollecteDon::create($infoCampagne);
 
-        return response()->json([
-            "status" => true,
-            "message" => "Annonce publiée avec succès",
-            "Campagne" => $campagne
-        ]);
-    }
+    //     return response()->json([
+    //         "status" => true,
+    //         "message" => "Annonce publiée avec succès",
+    //         "Campagne" => $campagne
+    //     ]);
+    // }
 
 
         }

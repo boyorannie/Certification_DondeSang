@@ -51,11 +51,12 @@ class StructureController extends Controller
         ]);
 
         if(!empty($token)){
-
+            $structure = auth('structure')->user();
             return response()->json([
                 "status" => true,
                 "message" => "Connexion réuissi",
-                "token" => $token
+                "token" => $token,
+                "structure" =>$structure
             ]);
         }
         
