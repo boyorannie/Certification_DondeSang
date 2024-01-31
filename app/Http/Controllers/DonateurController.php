@@ -55,11 +55,12 @@ class DonateurController extends Controller
         ]);
 
         if(!empty($token)){
-
+            $donateur = auth('donateur')->user();
             return response()->json([
                 "status" => true,
                 "message" => "Connexion réuissi",
-                "token" => $token
+                "token" => $token,
+                "donateur" =>$donateur
             ]);
         }
 
@@ -151,5 +152,39 @@ if ($user) {
     ]);
 }
 }
+
+
+public function ListeDonateur()
+{
+    $donateur = Donateur::all();
+        return response()->json([
+            'liste Stuctures de Santé'=>$donateur,
+            
+        ]);
+
+}
+
+public function bloquerDonateur($id)
+{
+    // Recherche de la structure de santé par ID
+    $donateur = Donateur::findOrFail($id);
+
+    // Vérifier si la structure est déjà bloquée
+    if ($donateur->is_blocked) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Donateur déjà bloqué.'
+        ]);
+    }
+
+    // Bloquer la structure de santé
+    $donateur->update(['is_blocked' => true]);
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Le Donateur bloqué avec succès.'
+    ]);
+}
+
 
 }

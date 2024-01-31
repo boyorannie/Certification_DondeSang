@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_blocked')->default(false); //prend la valeur 0 par defaut
             $table->rememberToken();
             $table->timestamps();
             

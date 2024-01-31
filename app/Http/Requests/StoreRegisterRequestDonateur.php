@@ -32,7 +32,7 @@ class StoreRegisterRequestDonateur extends FormRequest
             'adresse' => ['required'],
             'sexe' => ['required'],
 
-            'image' => ['required','image','mimes:jpeg,png,jpg'],
+             'image' => ['required','image','mimes:jpeg,png,jpg'],
             'cni' => ['required','min:13'],
             'groupe_sanguin' => ['required'],
             'telephone' => ['required','regex:/^(70|75|76|77|78)[0-9]{7}$/'],
@@ -55,7 +55,6 @@ class StoreRegisterRequestDonateur extends FormRequest
             'prenom.required'=> 'Le champs prenom est obligatoire',
             'email.required'=> 'Le champs email est obligatoire',
             'sexe.required'=> 'Le champs sexe est obligatoire',
-
             'image.required'=> 'Le champs image est obligatoire',
             'groupe_sanguin.required'=> 'Le champs email est obligatoire',
             'cni.required'=> 'Le champs email est obligatoire',

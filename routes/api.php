@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\DonateurController;
 use App\Http\Controllers\StructureController;
 use App\Http\Controllers\PromesseDonController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\DetailsCollecteController;
 use App\Http\Controllers\CampagneCollecteDonController;
 /*
@@ -26,6 +27,8 @@ Route::post("loginAdmin", [ApiController::class, "login"]);
 Route::post("loginStructure", [StructureController::class, "loginStructure"]);
 Route::get("listeAnnonces", [CampagneCollecteDonController::class, "listerAnnonces"]);
 
+
+
 //------------------------------------------------------------------------------------------
 
 //routes destinées à l'authentification de l'admin
@@ -43,7 +46,7 @@ Route::group([
 Route::group([
     "middleware" => ["auth:structure"]
 ], function(){
-    Route::post("modifierComptestructure/{id}", [StructureController::class, "modifier"]);
+   
     Route::get("profileStructure", [StructureController::class, "profileStructure"]);
     Route::get("refresh", [StructureController::class, "refreshToken"]);
     Route::get("logoutStructure", [StructureController::class, "logout"]);
@@ -52,7 +55,8 @@ Route::group([
     Route::delete("supprimerAnnonce/{annonce}", [CampagneCollecteDonController::class, "SupprimerAnnonce"]);
     Route::get("listerAnnonceStructure", [CampagneCollecteDonController::class, "listerAnnonceStructure"]);
     Route::get("CloturerAnnonce/{id}", [CampagneCollecteDonController::class, "CloturerAnnonce"]);
-
+   
+    
 });
 //---------------------------------------------------------------------------------------
 
@@ -67,6 +71,12 @@ Route::group([
     Route::get("FaireDon/{campagneId}", [PromesseDonController::class, "promesseDon"]);
     Route::put('confirmerpromesse/{promesseDon}', [PromesseDonController::class, 'confirmerPromesseDon']);
     Route::put('annulerpromesse/{promesseDon}', [PromesseDonController::class, 'annulerPromesseDon']);
+    Route::post('motpasseoublie', [ResetPasswordController::class, 'soumettreMotpassOublie'])
+    ->name('motpasse.oublie.post');
+    Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetPasswordForm'])
+    ->name('reset.password.get');
+    Route::post('reset-password', [ResetPasswordController::class, 'submitResetPasswordForm'])
+    ->name('reset.password.post');
 
 
 });
@@ -80,6 +90,12 @@ Route::group([
 ], function(){
 Route::post("ajouterStructureSante", [StructureController::class, "ajouterStructureSante"]);
 Route::get("listeAnnoncesAdmin", [CampagneCollecteDonController::class, "listerAnnonces"]);
+Route::post("PublierAnnoncePartenaire", [CampagneCollecteDonController::class, "PublierAnnoncePartenaire"]);
+Route::get("listeStructure", [StructureController::class, "ListeStructures"]);
+Route::get("listeDonateur", [DonateurController::class, "ListeDonateur"]);
+Route::put("bloquerDonateur", [DonateurController::class, "bloquerDonateur"]);
+Route::put("bloquerStructure", [StructureController::class, "bloquerStructure"]);
+Route::post("modifierComptestructure/{id}", [StructureController::class, "modifierStructure"]);
 });
 
 

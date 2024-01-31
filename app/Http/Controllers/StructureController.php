@@ -100,12 +100,12 @@ class StructureController extends Controller
         ]);
     }
 
-    public function modifier(Request $request, $id)
+    public function modifierStructure(Request $request, $id)
 {
     // validation Données
     $request->validate([
         "name" => "required",
-        "email" => "required|email|unique:users,email," . $id,
+        //"email" => "required|email|unique:users,email," . $id,
         "adresse" => "required",
         "telephone" => "required",
         "image" => "required",
@@ -118,7 +118,7 @@ class StructureController extends Controller
     if ($user) {
         $user->update([
             "name" => $request->name,
-            "email" => $request->email,
+            //"email" => $request->email,
             "adresse" => $request->adresse,
             "telephone" => $request->telephone,
             "image" => $request->image,
@@ -139,4 +139,36 @@ class StructureController extends Controller
         ]);
     }
 }
+
+public function ListeStructures()
+{
+    $structure = StructureSante::all();
+        return response()->json([
+            'liste Stuctures de Santé'=>$structure,
+            
+        ]);
+}
+
+public function bloquerStructure($id)
+{
+    // Recherche de la structure de santé par ID
+    $structure = StructureSante::findOrFail($id);
+
+    // Vérifier si la structure est déjà bloquée
+    if ($structure->is_blocked) {
+        return response()->json([
+            'status' => false,
+            'message' => 'La structure de santé est déjà bloquée.'
+        ]);
+    }
+
+    // Bloquer la structure de santé
+    $structure->update(['is_blocked' => true]);
+
+    return response()->json([
+        'status' => true,
+        'message' => 'La structure de santé a été bloquée avec succès.'
+    ]);
+}
+
 }

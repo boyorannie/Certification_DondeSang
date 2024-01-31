@@ -29,17 +29,18 @@ class ApiController extends Controller
         ]);
 
         if(!empty($token)){
-
+            $user = auth()->user();
             return response()->json([
                 "status" => true,
                 "message" => "Connexion réuissi",
-                "token" => $token
+                "token" => $token,
+                "user" => $user
             ]);
         }
 
         return response()->json([
             "status" => false,
-            "message" => "Invalid details"
+            "message" => "Identifiants incorrects"
         ]);
     }
 
