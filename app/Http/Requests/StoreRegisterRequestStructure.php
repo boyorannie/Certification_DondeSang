@@ -25,12 +25,12 @@ class StoreRegisterRequestStructure extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:5', 'regex:/^[a-zA-Z\s]+$/'],
+            'name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required','min:8'],
+            'password' => ['required', 'min:8', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/'],
             'adresse' => ['required'],  
             'image' => ['required','image','mimes:jpeg,png,jpg'],
-            'telephone' => ['required', 'regex:/^(33|77|78|79|75)[0-9]{7}$/'],
+            'telephone' => ['required', 'regex:/^(33|77|78|70|79|75)[0-9]{7}$/'],
 
            
         ];
@@ -51,9 +51,11 @@ class StoreRegisterRequestStructure extends FormRequest
             'email.required'=> 'Le champs email est obligatoire',
             'image.required'=> 'L\'image est obligatoire',
             'adresse.required'=> 'Le champs adresse est obligatoire',
-            'telephone.required'=> 'Le champs telephone est obligatoire et doit commencer par 78 ou 77 ou 76 ou 70, ou 33',
-            'password.required'=> 'Le champs mot de passe est obligatoire et doit contenir au   minimum 8 caracteres',
-            
+            'telephone.required'=> 'Le champs telephone est obligatoire ',
+            'telephone.regex'=> 'Le telephone doit commencer par 78 ou 77 ou 76 ou 70, ou 33',
+            'password.required'=> 'Le champs mot de passe est obligatoire ',
+            'password.regex'=> 'Le mot de passe doit contenir au moins une lettre mininuscule, au moins une lettre majuscule et au moins un caractère spécial',
+            'password.min'=> 'Le mot de passe doit contenir au minimum 8 caracteres',
         ];
     }
 }

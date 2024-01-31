@@ -27,8 +27,14 @@ Route::post("loginAdmin", [ApiController::class, "login"]);
 Route::post("loginStructure", [StructureController::class, "loginStructure"]);
 Route::get("listeAnnonces", [CampagneCollecteDonController::class, "listerAnnonces"]);
 
-
-
+//--------------------------------------------------------------------------------------
+// routes destinées à réinitialiser le mot de passe du donateur
+Route::post('motpasseoublie', [ResetPasswordController::class, 'soumettreMotpassOublie'])
+    ->name('motpasse.oublie.post');
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetPasswordForm'])
+    ->name('reset.password.get');
+Route::post('reset-password', [ResetPasswordController::class, 'submitResetPasswordForm'])
+    ->name('reset.password.post');
 //------------------------------------------------------------------------------------------
 
 //routes destinées à l'authentification de l'admin
@@ -71,13 +77,8 @@ Route::group([
     Route::get("FaireDon/{campagneId}", [PromesseDonController::class, "promesseDon"]);
     Route::put('confirmerpromesse/{promesseDon}', [PromesseDonController::class, 'confirmerPromesseDon']);
     Route::put('annulerpromesse/{promesseDon}', [PromesseDonController::class, 'annulerPromesseDon']);
-    Route::post('motpasseoublie', [ResetPasswordController::class, 'soumettreMotpassOublie'])
-    ->name('motpasse.oublie.post');
-    Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetPasswordForm'])
-    ->name('reset.password.get');
-    Route::post('reset-password', [ResetPasswordController::class, 'submitResetPasswordForm'])
-    ->name('reset.password.post');
-
+    Route::get('ListePromesseDonConfirme', [PromesseDonController::class, 'ListePromesseDonConfirme']);
+    
 
 });
 
@@ -93,8 +94,12 @@ Route::get("listeAnnoncesAdmin", [CampagneCollecteDonController::class, "listerA
 Route::post("PublierAnnoncePartenaire", [CampagneCollecteDonController::class, "PublierAnnoncePartenaire"]);
 Route::get("listeStructure", [StructureController::class, "ListeStructures"]);
 Route::get("listeDonateur", [DonateurController::class, "ListeDonateur"]);
-Route::put("bloquerDonateur", [DonateurController::class, "bloquerDonateur"]);
-Route::put("bloquerStructure", [StructureController::class, "bloquerStructure"]);
+Route::put("bloquerDonateur/{id}", [DonateurController::class, "bloquerDonateur"]);
+Route::get("afficherDonateursBloques", [DonateurController::class, "afficherDonateursBloques"]);
+Route::get("afficherDonateursNonBloques", [DonateurController::class, "afficherDonateursNonBloques"]);
+Route::put("bloquerStructure/{id}", [StructureController::class, "bloquerStructure"]);
+Route::get("afficherStructureBloques", [StructureController::class, "afficherStructureBloques"]);
+Route::get("afficherStructuresNonBloques", [StructureController::class, "afficherStructuresNonBloques"]);
 Route::post("modifierComptestructure/{id}", [StructureController::class, "modifierStructure"]);
 });
 

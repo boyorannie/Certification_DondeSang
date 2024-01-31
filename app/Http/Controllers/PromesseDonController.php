@@ -32,7 +32,7 @@ class PromesseDonController extends Controller
             ], 404);
         }
 
-        // Création la promesse de don
+        // Créer la promesse de don
         $promesseDon = PromesseDon::create([
             'campagne_id' => $campagne->id,
             'donateur_id' => $donateur->id,
@@ -78,6 +78,16 @@ class PromesseDonController extends Controller
         ]);
     }
 
-    // ...
+    public function ListePromesseDonConfirme()
+{
+    $promesseconfirme = PromesseDon::where('statut', 'confirmé')->get();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Liste des Promesses de Don Confirmées.',
+        'donateurs' => $promesseconfirme
+    ]);
+}
+    
 }
     

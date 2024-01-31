@@ -187,4 +187,26 @@ public function bloquerDonateur($id)
 }
 
 
+public function afficherDonateursBloques()
+{
+    $donateursBloques = Donateur::where('is_blocked', true)->get();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Liste des donateurs bloqués.',
+        'donateurs' => $donateursBloques
+    ]);
+}
+
+public function afficherDonateursNonBloques()
+{
+    $donateursNonBloques = Donateur::where('is_blocked', false)->get();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Liste des donateurs non bloqués.',
+        'donateurs' => $donateursNonBloques
+    ]);
+}
+
 }

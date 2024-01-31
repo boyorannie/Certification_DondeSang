@@ -25,10 +25,10 @@ class StoreRegisterRequestDonateur extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:5', 'regex:/^[a-zA-Z\s]+$/'],
-            'prenom' => ['required', 'min:4', 'regex:/^[a-zA-Z\s]+$/'],
+            'name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'prenom' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required','min:8'],
+            'password' => ['required', 'min:8', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/'],
             'adresse' => ['required'],
             'sexe' => ['required'],
 
@@ -52,15 +52,21 @@ class StoreRegisterRequestDonateur extends FormRequest
     {
         return [
             'name.required'=> 'Le champs nom est obligatoire',
+            'name.regex'=> 'Le nom est composé uniquement de lettres majuscules ou minuscules et d\'espaces',
             'prenom.required'=> 'Le champs prenom est obligatoire',
+            'prenom.regex'=> 'Le prenom est composé uniquement de lettres majuscules ou minuscules et d\'espaces',
             'email.required'=> 'Le champs email est obligatoire',
             'sexe.required'=> 'Le champs sexe est obligatoire',
             'image.required'=> 'Le champs image est obligatoire',
             'groupe_sanguin.required'=> 'Le champs email est obligatoire',
             'cni.required'=> 'Le champs email est obligatoire',
+            'cni.min'=> 'La CNI doit contenir 13 caractère',
             'adresse.required'=> 'Le champs adresse est obligatoire',
-            'telephone.required'=> 'Le champs telephone est obligatoire et doit commencer par 78 ou 77 ou 76 ou 70',
-            'password.required'=> 'Le champs mot de passe est obligatoire et doit contenir au   minimum 8 caracteres',
+            'telephone.required'=> 'Le champs telephone est obligatoire',
+            'telephone.regex'=> 'Le telephone doit commencer par 78 ou 77 ou 76 ou 70',
+            'password.required'=> 'Le champs mot de passe est obligatoire ',
+            'password.regex'=> 'Le mot de passe doit contenir au moins une lettre mininuscule, au moins une lettre majuscule et au moins un caractère spécial',
+            'password.min'=> 'Le mot de passe doit contenir au minimum 8 caracteres',
             
         ];
     }

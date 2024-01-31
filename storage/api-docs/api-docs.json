@@ -113,6 +113,96 @@
                 ]
             }
         },
+        "/api/listeStructure": {
+            "get": {
+                "summary": "ListerStructure",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_ADMIN"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/listeDonateur": {
+            "get": {
+                "summary": "listeDonateur",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_ADMIN"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
         "/api/logoutAdmin": {
             "get": {
                 "summary": "LogoutAdmin",
@@ -156,6 +246,107 @@
                         "type": "string"
                     }
                 ]
+            }
+        },
+        "/api/modifierComptestructure/{id}": {
+            "post": {
+                "summary": "ModifierCompteStructure",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_ADMIN"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "adresse": {
+                                        "type": "string"
+                                    },
+                                    "telephone": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "name": "Hopital principal",
+                                "adresse": "Plateau",
+                                "telephone": "338541624",
+                                "password": "123456789",
+                                "image": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/loginAdmin": {
@@ -318,11 +509,11 @@
                                 }
                             },
                             "example": {
-                                "name": "Hopital principal",
+                                "name": "Hopital Fan",
                                 "adresse": "Plateau",
-                                "telephone": "338541629",
-                                "email": "principaleess@gouv.sante.com",
-                                "password": "123456789",
+                                "telephone": "338546897",
+                                "email": "fan-sante@gouv.sante.com",
+                                "password": "Min1234567@",
                                 "image": {
                                     "type": "string",
                                     "format": "binary"
@@ -370,6 +561,286 @@
                     "Route_ADMIN"
                 ],
                 "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/afficherStructureBloques": {
+            "get": {
+                "summary": "AfficherStructureBloques",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_ADMIN"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/afficherDonateursBloques": {
+            "get": {
+                "summary": "afficherDonateursBloques",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_ADMIN"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/afficherDonateursNonBloques": {
+            "get": {
+                "summary": "afficherDonateursNonBloques",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_ADMIN"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/afficherStructuresNonBloques": {
+            "get": {
+                "summary": "afficherStructuresNonBloques",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_ADMIN"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/bloquerDonateur/{id}": {
+            "put": {
+                "summary": "BloquerDonateur",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_ADMIN"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/bloquerStructure/{id}": {
+            "put": {
+                "summary": "BloquerStructure",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_ADMIN"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
                     {
                         "in": "header",
                         "name": "User-Agent",
@@ -535,7 +1006,7 @@
                                 }
                             },
                             "example": {
-                                "email": "principaleess@gouv.sante.com",
+                                "email": "aristide.dantec@gouv.sante.com",
                                 "password": "123456789"
                             }
                         }
@@ -620,8 +1091,8 @@
                             },
                             "example": {
                                 "jour": "Lundi",
-                                "heure": "12:00:00",
-                                "lieu": "place de l'indépendance",
+                                "heure": "15:00:00",
+                                "lieu": "Dantec",
                                 "statut": "ouverte",
                                 "": ""
                             }
@@ -689,7 +1160,7 @@
                 ]
             }
         },
-        "/api/modifierAnnonce/{id}": {
+        "/api/modifierAnnonce/{1}": {
             "post": {
                 "summary": "ModifierAnnonce",
                 "description": "",
@@ -771,111 +1242,6 @@
                                 "heure": "11:00:00",
                                 "lieu": "place de l'indépendance",
                                 "statut": "ouverte"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/modifierComptestructure/{id}": {
-            "post": {
-                "summary": "ModifierCompteStructure",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Route_Structure_Sante"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "Authorization",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "adresse": {
-                                        "type": "string"
-                                    },
-                                    "telephone": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "image": {
-                                        "type": "string",
-                                        "format": "binary"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "name": "Hopital principal",
-                                "adresse": "Plateau",
-                                "telephone": "338541624",
-                                "email": "principaleess@gouv.sante.com",
-                                "password": "123456789",
-                                "image": {
-                                    "type": "string",
-                                    "format": "binary"
-                                }
                             }
                         }
                     }
@@ -1044,12 +1410,258 @@
                                 }
                             },
                             "example": {
-                                "email": "marcel@gmail.com",
-                                "password": "123456789"
+                                "email": "boyorannie450@gmail.com",
+                                "password": "Annie123@"
                             }
                         }
                     }
                 }
+            }
+        },
+        "/api/InscriptionDonneur": {
+            "post": {
+                "summary": "InscriptionDonateur",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_Donateur"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "adresse": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "cni": {
+                                        "type": "string"
+                                    },
+                                    "groupe_sanguin": {
+                                        "type": "string"
+                                    },
+                                    "sexe": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "telephone": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "name": "BADIANE",
+                                "prenom": "Annie",
+                                "email": "boyorthrse@gmail.com",
+                                "adresse": "hml-gand-yoff",
+                                "password": "Passer123@",
+                                "cni": "1234567891983",
+                                "groupe_sanguin": "O+",
+                                "sexe": "Femme",
+                                "image": {
+                                    "type": "string",
+                                    "format": "binary"
+                                },
+                                "telephone": "779628744"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/profileDonateur": {
+            "get": {
+                "summary": "ProfilDonateur",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_Donateur"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/logoutDonateur": {
+            "get": {
+                "summary": "LogoutDonateur",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_Donateur"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/ListePromesseDonConfirme": {
+            "get": {
+                "summary": "ListePromesseDonConfirme",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_Donateur"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
             }
         },
         "/api/confirmerpromesse/{promesseDon}": {
@@ -1100,6 +1712,77 @@
                         "type": "string"
                     }
                 ]
+            }
+        },
+        "/api/motpasseoublie": {
+            "post": {
+                "summary": "ReinitialiserMotPasse",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_Donateur"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "email": "boyorannie450@gmail.com"
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/modifierCompte/{id}": {
@@ -1268,52 +1951,7 @@
                 ]
             }
         },
-        "/api/logoutDonateur": {
-            "get": {
-                "summary": "LogoutDonateur",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Route_Donateur"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/FaireDon/{campagneId}": {
+        "/api/FaireDon/2": {
             "get": {
                 "summary": "FairePromesseDon",
                 "description": "",
@@ -1361,162 +1999,6 @@
                         "type": "string"
                     }
                 ]
-            }
-        },
-        "/api/profileDonateur": {
-            "get": {
-                "summary": "ProfilDonateur",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Route_Donateur"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/InscriptionDonneur": {
-            "post": {
-                "summary": "InscriptionDonateur",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Route_Donateur"
-                ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "prenom": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "adresse": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "cni": {
-                                        "type": "string"
-                                    },
-                                    "groupe_sanguin": {
-                                        "type": "string"
-                                    },
-                                    "sexe": {
-                                        "type": "string"
-                                    },
-                                    "image": {
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "telephone": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "name": "Ntandou",
-                                "prenom": "Marcel",
-                                "email": "marcel@gmail.com",
-                                "adresse": "Castor",
-                                "password": "123456789",
-                                "cni": "1234567891987",
-                                "groupe_sanguin": "O+",
-                                "sexe": "Homme",
-                                "image": {
-                                    "type": "string",
-                                    "format": "binary"
-                                },
-                                "telephone": "786598748"
-                            }
-                        }
-                    }
-                }
             }
         }
     }

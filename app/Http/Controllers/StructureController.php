@@ -171,4 +171,26 @@ public function bloquerStructure($id)
     ]);
 }
 
+public function afficherStructureBloques()
+{
+    $structureBloques = StructureSante::where('is_blocked', true)->get();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Liste des structures bloquées.',
+        'structureBloques' => $structureBloques
+    ]);
+}
+
+public function afficherStructuresNonBloques()
+{
+    $structureNonBloques = StructureSante::where('is_blocked', false)->get();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Liste des structures non bloqués.',
+        'structureNonBloques' => $structureNonBloques
+    ]);
+}
+
 }
