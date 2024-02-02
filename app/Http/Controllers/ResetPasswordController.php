@@ -43,8 +43,8 @@ class ResetPasswordController extends Controller
             'created_at' => Carbon::now(),
         ]);
 
-        Mail::send('MailConfirmeReset', ['token' => $token], function ($message) use ($request) {
-            $message->to($request->email);
+        Mail::send('MailConfirmeReset', ['token' => $token], function ($message) use ($donateur) {
+            $message->to($doanteur->email);
             $message->subject('Reset Password');
         });
 

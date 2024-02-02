@@ -141,13 +141,21 @@ class StructureController extends Controller
     }
 }
 
-public function ListeStructures()
+public function ListeStructure()
 {
-    $structure = StructureSante::all();
-        return response()->json([
-            'liste Stuctures de Santé'=>$structure,
+    try{
+         return response()->json([
+            'statut_code' =>200,
+            'statut_message' => 'Liste Structures Santes inscrites',
+            'data'=>StructureSante::all()
             
         ]);
+
+    }catch(Exception $e){
+     return reponse($e)->json($e);
+    }
+  
+        
 }
 
 public function bloquerStructure($id)
