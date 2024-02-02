@@ -25,8 +25,8 @@ return new class extends Migration
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->boolean('is_blocked')->default(false); //prend la valeur 0 par defaut
+            $table->string('password');//
+            $table->boolean('is_blocked')->default(false); 
             $table->rememberToken();
             $table->timestamps();
             

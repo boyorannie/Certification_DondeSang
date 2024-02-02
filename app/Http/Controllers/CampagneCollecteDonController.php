@@ -38,7 +38,7 @@ class CampagneCollecteDonController extends Controller
          "message" => "Une annonce similaire existe déjà pour cette structure."
      ], 422);
  }
-        // Créer la campagne
+        
         $campagne = CampagneCollecteDon::create($infoUtilisateurValide);
     
         // Charger la relation StructureSante pour accéder aux détails de la structure
@@ -71,29 +71,39 @@ class CampagneCollecteDonController extends Controller
 
         public function listerAnnonceStructure()
         {
-             $annonces = CampagneCollecteDon::where('is_deleted', 0)
-             ->where('structure_id', auth('structure')->user()->id)->paginate(2);
-            if($annonces){
-                return response()->json([
-                    'statut'=>1,
-                    'Annonces' => $annonces,
-                ]);
-            }else{
-                return response()->json([
-                    'statut'=>0,
-                   
-                    'Annonces' =>'Aucune annonce enregistrée',
-                ]);
-            }
-           
-    
+         try {
+        $annonces = CampagneCollecteDon::where('is_deleted', 0)
+            ->where('structure_id', auth('structure')->user()->id)
+            ->paginate(2);
+
+        if ($annonces->count() > 0) {
+            return response()->json([
+                'statut_code' => 200,
+                'statut_message' => 'Liste des annonces de la structure',
+                'data' => $annonces,
+            ]);
+        } else {
+            return response()->json([
+                'statut_code' => 204, 
+                'statut_message' => 'Aucune annonce enregistrée pour cette structure',
+                'data' => null,
+            ]);
         }
+       }    catch (\Exception $e) {
+            return response()->json([
+            'statut_code' => 500,
+            'statut_message' => 'Erreur lors de la récupération des annonces de la structure',
+            'error' => $e->getMessage(),
+        ]);
+    }
+}
+
 
 
         public function modifierAnnonce(Request $request, $id)
         {
-            // validation Données
-        $request->validate([
+        
+       $annoncevalider= $request->validate([
         "jour"=> "required",
         "heure" => "required",
         "lieu" => "required",
@@ -101,10 +111,13 @@ class CampagneCollecteDonController extends Controller
         ]);
 
         $annonce = CampagneCollecteDon::findOrFail($id);
-
-        if(  $annonce->update($request->all())) {
+        $annonce->jour = $annoncevalider['jour'];
+        $annonce->heure = $annoncevalider['heure'];
+        $annonce->lieu = $annoncevalider['lieu'];
+        $annonce->statut = $annoncevalider['statut'];
+        if($annonce->update()) {
     
-            // Réponse
+            
             return response()->json([
                 "status" => true,
                 "message" => "Annonce modifiée avec succès",
@@ -121,24 +134,33 @@ class CampagneCollecteDonController extends Controller
 
 
 
-
-        public function listerAnnonces()
+    public function listerAnnonces()
     {
-         $annonces = CampagneCollecteDon::where('is_deleted', 0)->paginate(5);
-        // dd($annonces);
-        if($annonces){
+        try {
+            $annonces = CampagneCollecteDon::where('is_deleted', 0)->paginate(5);
+    
+            if ($annonces->count() > 0) {
+                return response()->json([
+                    'statut_code' => 200,
+                    'statut_message' => 'Liste des annonces',
+                    'data' => $annonces,
+                ]);
+            } else {
+                return response()->json([
+                    'statut_code' => 204, 
+                    'statut_message' => 'Aucune annonce enregistrée',
+                    'data' => null,
+                ]);
+            }
+        } catch (\Exception $e) {
             return response()->json([
-                'statut'=>1,
-                'annonces' => $annonces,
-            ]);
-        }else{
-            return response()->json([
-                'statut'=>0,
-               
-                'projets' =>'Aucune annonce enregistrée',
+                'statut_code' => 500,
+                'statut_message' => 'Erreur lors de la récupération des annonces',
+                'error' => $e->getMessage(),
             ]);
         }
-        }
+    }
+    
 
         public function SupprimerAnnonce(CampagneCollecteDon $annonce)
         {

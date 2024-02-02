@@ -156,12 +156,19 @@ if ($user) {
 
 public function ListeDonateur()
 {
-    $donateur = Donateur::all();
-        return response()->json([
-            'liste Stuctures de Santé'=>$donateur,
+    try{
+         return response()->json([
+            'statut_code' =>200,
+            'statut_message' => 'Liste Donateurs inscrits',
+            'data'=>Donateur::all()
             
         ]);
 
+    }catch(Exception $e){
+     return reponse($e)->json($e);
+    }
+  
+        
 }
 
 public function bloquerDonateur($id)
