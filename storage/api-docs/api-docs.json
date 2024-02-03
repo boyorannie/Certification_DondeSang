@@ -248,107 +248,6 @@
                 ]
             }
         },
-        "/api/modifierComptestructure/{id}": {
-            "post": {
-                "summary": "ModifierCompteStructure",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Route_ADMIN"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "User-Agent",
-                        "type": "string"
-                    },
-                    {
-                        "in": "header",
-                        "name": "Authorization",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "adresse": {
-                                        "type": "string"
-                                    },
-                                    "telephone": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "image": {
-                                        "type": "string",
-                                        "format": "binary"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "name": "Hopital principal",
-                                "adresse": "Plateau",
-                                "telephone": "338541624",
-                                "password": "123456789",
-                                "image": {
-                                    "type": "string",
-                                    "format": "binary"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/loginAdmin": {
             "post": {
                 "summary": "LoginAdmin",
@@ -567,6 +466,107 @@
                         "type": "string"
                     }
                 ]
+            }
+        },
+        "/api/modifierComptestructure/{id}": {
+            "post": {
+                "summary": "ModifierCompteStructure",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_Structure_Sante"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "adresse": {
+                                        "type": "string"
+                                    },
+                                    "telephone": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "name": "Hopital principal",
+                                "adresse": "Plateau",
+                                "telephone": "338541624",
+                                "password": "P@sser123",
+                                "image": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/afficherStructureBloques": {
@@ -939,6 +939,51 @@
                 ]
             }
         },
+        "/api/ListePromesseDon": {
+            "get": {
+                "summary": "ListePromesseDonConfirme",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_Structure_Sante"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
         "/api/loginStructure": {
             "post": {
                 "summary": "Loginstructure",
@@ -1006,8 +1051,8 @@
                                 }
                             },
                             "example": {
-                                "email": "aristide.dantec@gouv.sante.com",
-                                "password": "123456789"
+                                "email": "fan-sante@gouv.sante.com",
+                                "password": "Min1234567@"
                             }
                         }
                     }
@@ -1090,8 +1135,8 @@
                                 }
                             },
                             "example": {
-                                "jour": "Lundi",
-                                "heure": "15:00:00",
+                                "jour": "Jeudi",
+                                "heure": "09:00:17",
                                 "lieu": "Dantec",
                                 "statut": "ouverte",
                                 "": ""
@@ -1160,7 +1205,7 @@
                 ]
             }
         },
-        "/api/modifierAnnonce/{1}": {
+        "/api/modifierAnnonce/{id}": {
             "post": {
                 "summary": "ModifierAnnonce",
                 "description": "",
@@ -1238,9 +1283,9 @@
                                 }
                             },
                             "example": {
-                                "jour": "Samedi",
-                                "heure": "11:00:00",
-                                "lieu": "place de l'indépendance",
+                                "jour": "Dimanche",
+                                "heure": "08:00:00",
+                                "lieu": "Mame abdou",
                                 "statut": "ouverte"
                             }
                         }
@@ -1410,8 +1455,8 @@
                                 }
                             },
                             "example": {
-                                "email": "boyorannie450@gmail.com",
-                                "password": "Annie123@"
+                                "email": "boyorthrse@gmail.com",
+                                "password": "Passer123@"
                             }
                         }
                     }
@@ -1951,7 +1996,7 @@
                 ]
             }
         },
-        "/api/FaireDon/2": {
+        "/api/FaireDon/{campagneId}": {
             "get": {
                 "summary": "FairePromesseDon",
                 "description": "",

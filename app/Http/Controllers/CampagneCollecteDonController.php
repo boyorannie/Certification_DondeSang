@@ -8,9 +8,13 @@ use App\Models\CampagneCollecteDon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\CampagneCollecteRequest;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CampagneCollecteDonController extends Controller
 {
+    use RefreshDatabase;
+    
+
     public function PublierAnnonce(CampagneCollecteRequest $request){
         $structureSante = auth('structure')->user();
 
@@ -73,8 +77,7 @@ class CampagneCollecteDonController extends Controller
         {
          try {
         $annonces = CampagneCollecteDon::where('is_deleted', 0)
-            ->where('structure_id', auth('structure')->user()->id)
-            ->paginate(2);
+            ->where('structure_id', auth('structure')->user()->id);
 
         if ($annonces->count() > 0) {
             return response()->json([
@@ -137,7 +140,7 @@ class CampagneCollecteDonController extends Controller
     public function listerAnnonces()
     {
         try {
-            $annonces = CampagneCollecteDon::where('is_deleted', 0)->paginate(5);
+            $annonces = CampagneCollecteDon::where('is_deleted', 0);
     
             if ($annonces->count() > 0) {
                 return response()->json([
@@ -186,7 +189,7 @@ class CampagneCollecteDonController extends Controller
         
             $annonce= CampagneCollecteDon::findOrFail($id);
                 if($annonce){
-                $annoncestatut = 'complete';
+                $annonce->statut = 'complete';
                 if($annonce->update()){
                     return response()->json([
                         "status" => 1,
@@ -203,6 +206,7 @@ class CampagneCollecteDonController extends Controller
 
         
 
+        
 
         }
         

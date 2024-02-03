@@ -113,6 +113,7 @@ class StructureController extends Controller
         "password" => "required",
     ]);
 
+    
     // Mise à jour des informations de l'utilisateur
     $user = StructureSante::find($id);
 

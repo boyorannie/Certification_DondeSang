@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\CampagneCollecteDon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +24,7 @@ class CampagneCollecteDonFactory extends Factory
             'jour' => $this->faker->randomElement(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']),
             'heure' => $this->faker->time(),
             'lieu' => $this->faker->address,
-            'statut' => $this->faker->randomElement(['ouverte', 'complete']),
+            'statut' => 'ouverte',
             'is_deleted' => false,
             'structure_id' => function () {
             

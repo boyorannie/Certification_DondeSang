@@ -61,8 +61,8 @@ Route::group([
     Route::delete("supprimerAnnonce/{annonce}", [CampagneCollecteDonController::class, "SupprimerAnnonce"]);
     Route::get("listerAnnonceStructure", [CampagneCollecteDonController::class, "listerAnnonceStructure"]);
     Route::get("CloturerAnnonce/{id}", [CampagneCollecteDonController::class, "CloturerAnnonce"]);
-   
-    
+    Route::get('ListePromesseDon', [PromesseDonController::class, 'ListePromesseDonConfirme']);
+    Route::post("modifierComptestructures/{id}", [StructureController::class, "modifierStructure"]);
 });
 //---------------------------------------------------------------------------------------
 

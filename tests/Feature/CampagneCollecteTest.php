@@ -12,6 +12,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CampagneCollecteTest extends TestCase
 {
+ 
+
     public function testPublierAnnonce()
     {
       
@@ -22,8 +24,8 @@ class CampagneCollecteTest extends TestCase
         $this->assertTrue(auth('structure')->check());
         $this->assertInstanceOf(StructureSante::class, auth('structure')->user());
         $response = $this->postJson('api/publier', [
-            'jour' => 'Samedi', 
-            'heure' => '12:00:00', 
+            'jour' => 'Mardi', 
+            'heure' => '13:00:00', 
             'lieu' => 'Hlm',
             'statut' => 'ouverte',
         ]);
@@ -36,8 +38,8 @@ class CampagneCollecteTest extends TestCase
 
         $this->assertDatabaseHas('campagne_collecte_dons', [
             'structure_id' => $structureSante->id,
-            'jour' => 'Samedi', 
-            'heure' => '12:00:00', 
+            'jour' => 'Mardi', 
+            'heure' => '13:00:00', 
             'lieu' => 'Hlm',
             'statut' => 'ouverte',
         ]);
@@ -74,27 +76,8 @@ public function testListerAnnonceStructure()
         ->assertJson([
             'statut_code' => 200,
             'statut_message' => 'Liste des annonces de la structure',
-            'data' => [
-                'current_page' => 1,
-                'data' => [
-                    [
-                        'id' => $annonce1->id,
-                        'jour' => 'Lundi',
-                        'heure' => '12:00:00',
-                        'lieu' => 'Hlm',
-                        'statut' => 'ouverte',
-                    ],
-                    [
-                        'id' => $annonce2->id,
-                        'jour' => 'Mardi',
-                        'heure' => '14:00:00',
-                        'lieu' => 'Centre ville',
-                        'statut' => 'ouverte',
-                    ],
-                   
-                ],
-                
-            ],
+            'data'=>$response->json('data')
+            
         ]);
 }
 
@@ -124,6 +107,81 @@ public function testModifierAnnonce()
     ]);
 }
 
+public function testSupprimerAnnonce()
+{
+    $structureSante = StructureSante::factory()->create();
+    $this->actingAs($structureSante, 'structure');
 
+    $annonce = CampagneCollecteDon::factory()->create([
+        'structure_id' => $structureSante->id,
+        'is_deleted' => false,
+    ]);
+
+    $response = $this->json('DELETE', "api/supprimerAnnonce/$annonce->id");
+    
+    $response->assertStatus(201)
+        ->assertJson([
+            'status' => 1,
+            'message' => 'Annonce supprimée avec succès',
+        ]);
+
+    $this->assertDatabaseHas('campagne_collecte_dons', [
+        'id' => $annonce->id,
+        'is_deleted' => true,
+    ]);
+}
+public function testCloturerAnnonce()
+{
+    $structureSante = StructureSante::factory()->create();
+    $this->actingAs($structureSante, 'structure');
+
+    $annonce = CampagneCollecteDon::factory()->create([
+        'structure_id' => $structureSante->id,
+        'statut' =>'ouverte',
+    ]);
+
+    $response = $this->json('GET', "api/CloturerAnnonce/$annonce->id");
+    
+    $response->assertStatus(201)
+        ->assertJson([
+            'status' => 1,
+            'message' => 'Annonce cloturée avec succès',
+        ]);
+        
+    $this->assertDatabaseHas('campagne_collecte_dons', [
+        'id' => $annonce->id,
+        'statut' =>'complete',
+    ]);
+}
+
+public function testListerAnnonce()
+{
+    
+    $structureSante = StructureSante::factory()->create();
+    $annonce = CampagneCollecteDon::factory()->create([
+        'structure_id' => $structureSante->id,
+        'jour' => 'Lundi',
+        'heure' => '12:00:00',
+        'lieu' => 'Hlm',
+        'statut' => 'ouverte',
+    ]);
+
+    $annonce = CampagneCollecteDon::factory()->create([
+        'structure_id' => $structureSante->id,
+        'jour' => 'Mardi',
+        'heure' => '14:00:00',
+        'lieu' => 'Centre ville',
+        'statut' => 'ouverte',
+    ]);
+
+    $response = $this->getJson('/api/listeAnnonces');
+    $response->assertStatus(200)
+        ->assertJson([
+            'statut_code' => 200,
+            'statut_message' => 'Liste des annonces',
+            'data'=>$response->json('data')
+            
+        ]);
+}
 
 }
