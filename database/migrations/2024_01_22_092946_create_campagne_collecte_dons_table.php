@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('campagne_collecte_dons', function (Blueprint $table) {
             $table->id();
-            $table->enum('jour',['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche']);
-            $table->time('heure');
+            $table->dateTime('date');
             $table->string('lieu');
             $table->enum('statut',['ouverte','complete'])->default('ouverte');
             $table->boolean('is_deleted')->default(false); //prend la valeur 0 par defaut

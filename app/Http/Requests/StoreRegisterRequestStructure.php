@@ -48,8 +48,10 @@ class StoreRegisterRequestStructure extends FormRequest
     {
         return [
             'name.required'=> 'Le champs nom est obligatoire',
+            'name.regex'=> 'Le champs doit être composé uniquement de lettres majuscules ou minuscules (a à z ou A à Z) et d\'espaces',
             'email.required'=> 'Le champs email est obligatoire',
             'image.required'=> 'L\'image est obligatoire',
+            'image.mimes'=> 'L\'image doit avoir le format jpeg,png,jpg ',
             'adresse.required'=> 'Le champs adresse est obligatoire',
             'telephone.required'=> 'Le champs telephone est obligatoire ',
             'telephone.regex'=> 'Le telephone doit commencer par 78 ou 77 ou 76 ou 70, ou 33',

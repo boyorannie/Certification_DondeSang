@@ -30,8 +30,8 @@ class CampagneCollecteDonController extends Controller
         $infoUtilisateurValide['structure_id'] = $structureSante->id;
          // Vérifier si une annonce similaire existe déjà pour cette structure
         $annonceExistante = CampagneCollecteDon::where('structure_id', $structureSante->id)
-        ->where('jour', $request->jour)
-        ->where('heure', $request->heure)
+        ->where('date', $request->date)
+        // ->where('heure', $request->heure)
         ->where('lieu', $request->lieu)
         ->where('statut', 'ouverte')
         ->exists();
@@ -62,6 +62,7 @@ class CampagneCollecteDonController extends Controller
             return response()->json([
                 "status" => true,
                 "message" => "Annonce publiée avec succès",
+                "Annonce" => $campagne,
                 "Structure de Santé" => $campagne->StructureSante
             ]);
         } else {
@@ -107,15 +108,15 @@ class CampagneCollecteDonController extends Controller
         {
         
        $annoncevalider= $request->validate([
-        "jour"=> "required",
-        "heure" => "required",
+        "date"=> "required",
+        // "heure" => "required",
         "lieu" => "required",
         "statut" => "required",
         ]);
 
         $annonce = CampagneCollecteDon::findOrFail($id);
-        $annonce->jour = $annoncevalider['jour'];
-        $annonce->heure = $annoncevalider['heure'];
+        $annonce->date = $annoncevalider['date'];
+        // $annonce->heure = $annoncevalider['heure'];
         $annonce->lieu = $annoncevalider['lieu'];
         $annonce->statut = $annoncevalider['statut'];
         if($annonce->update()) {

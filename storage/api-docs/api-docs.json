@@ -470,7 +470,7 @@
         },
         "/api/modifierComptestructure/{id}": {
             "post": {
-                "summary": "ModifierCompteStructure",
+                "summary": "ModifierCompteStructures",
                 "description": "",
                 "responses": {
                     "201": {
@@ -511,7 +511,7 @@
                     }
                 },
                 "tags": [
-                    "Route_Structure_Sante"
+                    "Route_ADMIN"
                 ],
                 "parameters": [
                     {
@@ -892,6 +892,107 @@
                         "type": "string"
                     }
                 ]
+            }
+        },
+        "/api/modifierComptestructures/{id}": {
+            "post": {
+                "summary": "ModifierCompteStructure",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Route_Structure_Sante"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "User-Agent",
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "adresse": {
+                                        "type": "string"
+                                    },
+                                    "telephone": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "name": "Hopital principal",
+                                "adresse": "Plateau",
+                                "telephone": "338541624",
+                                "password": "P@sser123",
+                                "image": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
         "/api/listerAnnonceStructure": {

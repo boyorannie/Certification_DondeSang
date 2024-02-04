@@ -31,8 +31,7 @@ class StoreRegisterRequestDonateur extends FormRequest
             'password' => ['required', 'min:8', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/'],
             'adresse' => ['required'],
             'sexe' => ['required'],
-
-             'image' => ['required','image','mimes:jpeg,png,jpg'],
+            'image' => ['required','image','mimes:jpeg,png,jpg'],
             'cni' => ['required','min:13'],
             'groupe_sanguin' => ['required'],
             'telephone' => ['required','regex:/^(70|75|76|77|78)[0-9]{7}$/'],
@@ -58,6 +57,7 @@ class StoreRegisterRequestDonateur extends FormRequest
             'email.required'=> 'Le champs email est obligatoire',
             'sexe.required'=> 'Le champs sexe est obligatoire',
             'image.required'=> 'Le champs image est obligatoire',
+            'image.mines'=> 'L\'image doit etre de type jpeg,png,jpg',
             'groupe_sanguin.required'=> 'Le champs email est obligatoire',
             'cni.required'=> 'Le champs email est obligatoire',
             'cni.min'=> 'La CNI doit contenir 13 caractère',

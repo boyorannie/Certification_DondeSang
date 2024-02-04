@@ -25,8 +25,7 @@ class CampagneCollecteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "jour" => ['required', 'in:Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche'],
-            "heure" => ['required','date_format:H:i:s'],
+            "date" => ['required', 'regex:/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/'],
             'lieu' => ['required'],
             "statut" => ['required', 'in:ouverte,complete'],
             
@@ -45,11 +44,12 @@ class CampagneCollecteRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'jour.required'=> 'Le champs jour est obligatoire',
-            'heure.required'=> 'Le champs heure est obligatoire',
+            'date.required'=> 'Le champs date est obligatoire',
+            'date.regex'=> 'Le format de la date doit etre de type annee-mois-jour espace hh:mm:ss',
             'adresse.required'=> 'Le champs adresse est obligatoire',
-            'statut.required'=> 'Le champs email est obligatoire',
-            
+            'statut.required'=> 'Le champs statut est obligatoire',
+            'lieu.required'=> 'Le champs lieu est obligatoire',
+            'statut.in' => 'Le statut doit être ouverte ou complete',
             
             
         ];
