@@ -25,6 +25,7 @@ class DonateurController extends Controller
             "password" => $infoUtilisateurValide['password'],
             "adresse" => $infoUtilisateurValide['adresse'],
             "cni" => $infoUtilisateurValide['cni'],
+            "groupe_sanguin" => $infoUtilisateurValide['groupe_sanguin'],
             "sexe" => $infoUtilisateurValide['sexe'],
             "image" => $imagePath,
             "telephone" => $infoUtilisateurValide['telephone'],
@@ -110,7 +111,7 @@ public function modifierCompte(Request $request, $id)
 // validation Données
 $request->validate([
     "name" => "required",
-    "email" => "required|email|unique:users,email," . $id,
+    //"email" => "required|email|unique:donateurs,email," . $id,
     "prenom" => "required",
     "adresse" => "required",
     "telephone" => "required",
@@ -125,14 +126,15 @@ $request->validate([
 $user = Donateur::find($id);
 
 if ($user) {
+    $imagePath = $request->file('image')->store('images/donateur', 'public');
     $user->update([
         "name" => $request->name,
-        "email" => $request->email,
+      //  "email" => $request->email,
         "prenom" => $request->prenom,
         "adresse" => $request->adresse,
         "telephone" => $request->telephone,
         "cni" => $request->cni,
-        "image" => $request->image,
+        "image" => $imagePath,
         "sexe" => $request->sexe,
         "groupe_sanguin" => $request->groupe_sanguin,
         "password" => $request->password ? Hash::make($request->password) : $user->password,

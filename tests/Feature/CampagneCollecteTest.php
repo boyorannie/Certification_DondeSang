@@ -24,8 +24,7 @@ class CampagneCollecteTest extends TestCase
         $this->assertTrue(auth('structure')->check());
         $this->assertInstanceOf(StructureSante::class, auth('structure')->user());
         $response = $this->postJson('api/publier', [
-            'jour' => 'Mardi', 
-            'heure' => '13:00:00', 
+            'date' => '2024-02-05 14:00:00',  
             'lieu' => 'Hlm',
             'statut' => 'ouverte',
         ]);
@@ -38,8 +37,7 @@ class CampagneCollecteTest extends TestCase
 
         $this->assertDatabaseHas('campagne_collecte_dons', [
             'structure_id' => $structureSante->id,
-            'jour' => 'Mardi', 
-            'heure' => '13:00:00', 
+            'date' => '2024-02-05 14:00:00', 
             'lieu' => 'Hlm',
             'statut' => 'ouverte',
         ]);
@@ -57,16 +55,14 @@ public function testListerAnnonceStructure()
 
     $annonce1 = CampagneCollecteDon::factory()->create([
         'structure_id' => $structureSante->id,
-        'jour' => 'Lundi',
-        'heure' => '12:00:00',
+        'date' => '2024-02-05 15:00:00',
         'lieu' => 'Hlm',
         'statut' => 'ouverte',
     ]);
 
     $annonce2 = CampagneCollecteDon::factory()->create([
         'structure_id' => $structureSante->id,
-        'jour' => 'Mardi',
-        'heure' => '14:00:00',
+        'date' => '2024-02-06 16:00:00',
         'lieu' => 'Centre ville',
         'statut' => 'ouverte',
     ]);
@@ -89,8 +85,7 @@ public function testModifierAnnonce()
         'structure_id' => $structureSante->id,
     ]);
     $nouvellesDonnees = [
-        'jour' => 'Dimanche',
-        'heure' => '08:00:00',
+        'date' => '2024-03-15 09:00:00',
         'lieu' => 'Mame abdou',
         'statut' => 'ouverte',
     ];
@@ -100,8 +95,7 @@ public function testModifierAnnonce()
     $response->assertStatus(200);
 
     $this->assertDatabaseHas('campagne_collecte_dons',[
-        'jour' => 'Dimanche',
-        'heure' => '08:00:00',
+        'date' => '2024-03-15 09:00:00',
         'lieu' => 'Mame abdou',
         'statut' => 'ouverte',
     ]);
@@ -160,16 +154,14 @@ public function testListerAnnonce()
     $structureSante = StructureSante::factory()->create();
     $annonce = CampagneCollecteDon::factory()->create([
         'structure_id' => $structureSante->id,
-        'jour' => 'Lundi',
-        'heure' => '12:00:00',
+        'date' => '2024-02-07',
         'lieu' => 'Hlm',
         'statut' => 'ouverte',
     ]);
 
     $annonce = CampagneCollecteDon::factory()->create([
         'structure_id' => $structureSante->id,
-        'jour' => 'Mardi',
-        'heure' => '14:00:00',
+        'date' => '2024-02-08',
         'lieu' => 'Centre ville',
         'statut' => 'ouverte',
     ]);

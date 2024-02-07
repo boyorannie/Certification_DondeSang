@@ -14,7 +14,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 
 class StructureSanteTest extends TestCase
 {
-    
+  
     public function testAjouterStructureSante()
     {
         
@@ -100,45 +100,113 @@ class StructureSanteTest extends TestCase
                 'message' =>$response->json('message'),
             ]);
 
-     // vérifier si la structure s'est bien déconnectée 
+     // vérifie si la structure s'est bien déconnectée 
         $this->assertGuest('structure');
     }
 
+    
     public function testModifierStructure()
     {
         $structure = StructureSante::factory()->create();
-    
-      
 
-        // Utiliser le token pour simuler l'authentification
-        $response = $this->withoutMiddleware()
-                         ->json('POST', "api/modifierComptestructure/{$structure->id}", [
-                             'name' => 'mameabdou',
-                             'adresse' => 'parcelle',
-                             'telephone' => '775486325',
-                             'image' => UploadedFile::fake()->image('structure.jpg'),
-                             'password' => 'P@sser123',
-                         ]);
-    
-        $response->assertStatus(200)
+        $response = $this->actingAs($structure, 'structure')
+            ->json('POST', "api/modifierComptestructures/$structure->id", [
+                'name' => 'mameabdou',
+                'adresse' => 'parcelle',
+                'telephone' => '775486325',
+                'image' => UploadedFile::fake()->image('structure.jpg'),
+                'password' => 'P@sser123',
+            ]);
+            $response->assertStatus(200)
             ->assertJson([
                 'status' => true,
-                'message' => $response->json('message'),
+                'message' => 'Profil mis à jour avec succès',
                 'data' => $response->json('data'),
             ]);
-    
-        // Assurez-vous que la base de données a été mise à jour avec les nouvelles données
-        $this->assertDatabaseHas('structure_santes', [
-            'id' => $structure->id,
-            'name' => 'mameabdou',
-            'adresse' => 'parcelle',
-            'telephone' => '775486325',
-        ]);
-    
-        // Vérifiez que le mot de passe a été mis à jour correctement
+
+        // Vérifie que le mot de passe a été mis à jour correctement
         $this->assertTrue(Hash::check('P@sser123', $structure->fresh()->password));
     }
+
+    public function testListeStructure()
+    {
     
+        $structures = StructureSante::factory(3)->create();
+        $admin = User::where('email', 'khadijambengue96@gmail.com')->first();
+        $this->actingAs($admin, 'structure');
+        $response = $this->get('api/listeStructure');
+        $response->assertStatus(200);
+        
+        // vérifie que la réponse contient les structures créées
+        foreach ($structures as $structure) {
+            $response->assertJsonFragment([
+                'name' => $structure->name,
+                'adresse' => $structure->adresse,
+                'telephone' => $structure->telephone,
+                'image' => $structure->image,
+            ]);
+        }
+    }
+
+    public function testBloquerStructure()
+    {
+    
+        $structure = StructureSante::factory()->create();
+        $admin = User::where('email', 'khadijambengue96@gmail.com')->first();
+        $this->actingAs($admin, 'structure');
+
+        $response = $this->putJson("api/bloquerStructure/$structure->id");
+    
+        $response->assertStatus(200);
+     
+        $this->assertDatabaseHas('structure_santes', [
+            'id' => $structure->id,
+            'is_blocked' => true,
+        ]);
+    
+        $response->assertJson([
+            'status' => true,
+            'message' => 'La structure de santé a été bloquée avec succès.',
+        ]);
+    }
+
+    public function testAfficherStructureBloques()
+{
+    $structureBloquee1 = StructureSante::factory()->create(['is_blocked' => true]);
+    $structureBloquee2 = StructureSante::factory()->create(['is_blocked' => true]);
+    $admin = User::where('email', 'khadijambengue96@gmail.com')->first();
+    $this->actingAs($admin, 'structure');
+
+    $response = $this->getJson('/api/afficherStructureBloques');
+    $response->assertStatus(200);
+
+    $response->assertJsonStructure([
+        'status',
+        'message',
+        'structureBloques' => [
+            '*' => ['id', 'is_blocked'],
+        ],
+    ]);
+}
+
+public function testAfficherStructuresNonBloques()
+{
+    $structureNonBloquee1 = StructureSante::factory()->create(['is_blocked' => false]);
+    $structureNonBloquee2 = StructureSante::factory()->create(['is_blocked' => false]);
+    $admin = User::where('email', 'khadijambengue96@gmail.com')->first();
+    $this->actingAs($admin, 'structure');
+
+    $response = $this->getJson('/api/afficherStructuresNonBloques');
+    $response->assertStatus(200);
+
+    $response->assertJsonStructure([
+        'status',
+        'message',
+        'structureNonBloques' => [
+            '*' => ['id', 'is_blocked'],
+        ],
+    ]);
+}
 }
     
 

@@ -36,7 +36,7 @@ class DonateurFactory extends Factory
             'role_id' => 2,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => bcrypt('password'),
+            'password' => bcrypt('Password@123'),
             'is_blocked' => false,
             'remember_token' => Str::random(10),
             'created_at' => now(),

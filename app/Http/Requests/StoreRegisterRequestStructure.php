@@ -26,7 +26,7 @@ class StoreRegisterRequestStructure extends FormRequest
     {
         return [
             'name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
-            'email' => ['required', 'email', 'unique:users,email'],
+            'email' => ['required', 'email', 'unique:structures,email'],
             'password' => ['required', 'min:8', 'regex:/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/'],
             'adresse' => ['required'],  
             'image' => ['required','image','mimes:jpeg,png,jpg'],

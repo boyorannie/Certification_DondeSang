@@ -103,44 +103,43 @@ class StructureController extends Controller
 
     public function modifierStructure(Request $request, $id)
 {
-    // validation Données
+    // Validation des données
     $request->validate([
         "name" => "required",
-        //"email" => "required|email|unique:users,email," . $id,
         "adresse" => "required",
         "telephone" => "required",
-        "image" => "required",
+        "image" => "required|image", 
         "password" => "required",
     ]);
 
-    
-    // Mise à jour des informations de l'utilisateur
     $user = StructureSante::find($id);
 
     if ($user) {
+        $imagePath = $request->file('image')->store('images/structure', 'public');
+        
+        // Mise à jour des données
         $user->update([
             "name" => $request->name,
-            //"email" => $request->email,
             "adresse" => $request->adresse,
             "telephone" => $request->telephone,
-            "image" => $request->image,
-            "password" => $request->password ? Hash::make($request->password) : $user->password,
+            "image" => $imagePath,
+            "password" => Hash::make($request->password),
         ]);
 
-        // Réponse
         return response()->json([
             "status" => true,
             "message" => "Profil mis à jour avec succès",
             "data" => $user,
-        ]);
+        ], 200);
     } else {
-        // Structure non trouvée
+       
         return response()->json([
             "status" => false,
             "message" => "Structure non trouvée",
-        ]);
+        ], 404);
     }
 }
+
 
 public function ListeStructure()
 {
@@ -198,7 +197,7 @@ public function afficherStructuresNonBloques()
 
     return response()->json([
         'status' => true,
-        'message' => 'Liste des structures non bloqués.',
+        'message' => 'Liste des structures non bloquées.',
         'structureNonBloques' => $structureNonBloques
     ]);
 }

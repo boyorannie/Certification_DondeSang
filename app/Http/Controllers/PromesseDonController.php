@@ -88,6 +88,32 @@ class PromesseDonController extends Controller
         'donateurs' => $promesseconfirme
     ]);
 }
-    
+public function testListePromesseDonConfirme()
+{
+   
+    PromesseDon::factory()->count(3)->create(['statut' => 'confirmé']);
+
+    // Appeler la fonction pour obtenir la liste des promesses de don confirmées
+    $response = $this->json('GET', 'api/listePromesseDonConfirme');
+
+    // Vérifier que la réponse est 200 OK
+    $response->assertStatus(200);
+
+    // Vérifier que la structure de la réponse est correcte
+    $response->assertJsonStructure([
+        'status',
+        'message',
+        'donateurs' => [
+            '*' => [
+                'id',
+                'statut',
+               
+            ]
+        ]
+    ]);
+
+    // Vérifier que le nombre de promesses de don confirmées dans la réponse est correct
+    $response->assertJsonCount(3, 'donateurs');
+}
 }
     

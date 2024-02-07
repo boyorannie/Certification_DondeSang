@@ -21,8 +21,7 @@ class CampagneCollecteDonFactory extends Factory
     public function definition()
     {
         return [
-            'jour' => $this->faker->randomElement(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']),
-            'heure' => $this->faker->time(),
+            'date' => $this->faker->dateTimeThisYear(),
             'lieu' => $this->faker->address,
             'statut' => 'ouverte',
             'is_deleted' => false,
